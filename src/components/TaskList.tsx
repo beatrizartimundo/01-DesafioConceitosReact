@@ -19,13 +19,16 @@ export function TaskList() {
     // Crie uma nova task com um id random, não permita criar caso o título seja vazio.
    
     if (newTaskTitle !== ""){
-         const newTask:Task = {
+      
+         const newTask = {
           id: uuidv4(),
           title: newTaskTitle ,
           isComplete:false
          }
         //  console.log(newTask);
          setTasks([...tasks,newTask])
+         //reseta input
+         setNewTaskTitle('')
           
         
       }
@@ -34,19 +37,27 @@ export function TaskList() {
   function handleToggleTaskCompletion(id: string) {
     // Altere entre `true` ou `false` o campo `isComplete` de uma task com dado ID
     //pega todos os itens e armazena para consulta
-    const updateTask: Task[] = [...tasks]
+    const updateTask = [...tasks]
     
-    updateTask.find((task:Task)=> task.id === id)!.isComplete = 
-    !updateTask.find((task:Task)=> task.id === id)!.isComplete
+    updateTask.find((task)=> task.id === id)!.isComplete = 
+    !updateTask.find((task)=> task.id === id)!.isComplete
+
+    setTasks(updateTask)
+    
+    //sugestão da correção utilizando o map
+    // const newTasks = tasks.map(task =>task.id === id ? {
+    //   ...task, isComplete: !task.isComplete
+    // }: task)
+    // setTasks(newTasks)
 
     // console.log(updateTask);
 
-    setTasks(updateTask)
+    
   }
 
   function handleRemoveTask(id: string) {
     // Remova uma task da listagem pelo ID
-    const deleteTask : Task[] = tasks.filter((task:Task)=> task.id !==id)
+    const deleteTask  = tasks.filter((task)=> task.id !==id)
 
     // console.log(deleteTask);
 
